@@ -125,7 +125,9 @@ const changeInput =()=>{
 const SwitchToTable = ()=>{
 
   RenderTable();
-  new DataTable('#DB-Table');
+  new DataTable('#DB-Table',{
+    order: [[0, 'desc']]
+  });
   $('#MainShow-section').fadeOut();
   $('#TableHolder').fadeIn();
 
