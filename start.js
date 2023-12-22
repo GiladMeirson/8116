@@ -51,7 +51,7 @@ str+=`<div class="contentCard">
 </div>
 <div class="buttons">
     <button id="X-${index}" class="btn-X-effect">מחק</button>
-    <button id="U-${index}" class="btn-ok-effect">עדכן</button>
+    <button onclick="UpdateHandler(this.id)" id="U-${index}" class="btn-ok-effect">עדכן</button>
 </div>
 
 </div>`;
@@ -190,6 +190,15 @@ for (let i = 0; i < GlobalDATA.length; i++) {
 `;
 document.getElementById('DT-PH').innerHTML = str;
 }
+
+const UpdateHandler =(id)=>{
+  let idDataPass = id.replace('U-','');
+  console.log('you click me ', idDataPass);
+  sessionStorage.setItem('Data',idDataPass);
+  window.location.assign('./RegisterForm.html');
+
+}
+
 //////////////FireBase
 // const SaveOneSolider = (json) => {
 //     ref.child(json.personalNumber+'---'+json.name).set(json);
@@ -204,4 +213,9 @@ const ReadFrom = (ref,CB) => {
       // console.log(Object.keys(data).length)
       loadRender(data);
     });
-  };
+};
+
+const Save = (value) => {
+  ref = firebase.database().ref("Miluim");
+  ref.child('Miluim').set(value);
+};
