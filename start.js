@@ -18,8 +18,35 @@
 GlobalDATA=[];
 
 const init = ()=>{
+
   ReadFrom('Miluim');
-  
+  $('#TableHolder').hide();
+  $('#MainShow-section').hide();
+  $('#header-section').hide();
+
+  if (sessionStorage.getItem('isAllow')) {
+    $('#Block').fadeOut();
+    $('#TableHolder').fadeIn();
+    $('#MainShow-section').fadeIn();
+    $('#header-section').fadeIn();
+  }
+  document.getElementById('passIN').addEventListener('keypress',(e)=>{
+    const userpassIN = e.srcElement.value;
+    if (e.keyCode==13) {
+      const collection = firebase.database().ref('pass');
+      collection.on("value", (snapshot) => {
+        const data = snapshot.val();
+        if (userpassIN==data.pass) {
+          sessionStorage.setItem('isAllow',true);
+          $('#Block').fadeOut();
+          $('#TableHolder').fadeIn();
+          $('#MainShow-section').fadeIn();
+          $('#header-section').fadeIn();
+          
+        }
+      });
+    }
+  })
 }
 const loadRender=(data)=>{
   console.log('LoadRender',data);
@@ -50,8 +77,8 @@ str+=`<div class="contentCard">
     <p>${Onesolider.education}</p>
 </div>
 <div class="buttons">
-    <button id="X-${index}" class="btn-X-effect">מחק</button>
-    <button onclick="UpdateHandler(this.id)" id="U-${index}" class="btn-ok-effect">עדכן</button>
+    <button id="X-${index}" onclick="deleteSolider(this.id)" class="btn-X-effect">מחיקה</button>
+    <button onclick="UpdateHandler(this.id)" id="U-${index}" class="btn-ok-effect">עריכה</button>
 </div>
 
 </div>`;
@@ -125,18 +152,22 @@ const changeInput =()=>{
 const SwitchToTable = ()=>{
 
   RenderTable();
+  $('#tableBTN').fadeOut();
   new DataTable('#DB-Table',{
     order: [[0, 'desc']]
   });
   $('#MainShow-section').fadeOut();
   $('#TableHolder').fadeIn();
-
+  $('#searchBarBTN').fadeOut();
+  $('#searchBar').fadeOut();
 
 }
 const SwitchtoCard=()=>{
   $('#TableHolder').fadeOut();
   $('#MainShow-section').fadeIn();
-
+  $('#tableBTN').fadeIn();
+  $('#searchBarBTN').fadeIn();
+  $('#searchBar').fadeIn();
 }
 
 const RenderTable=()=>{
@@ -152,6 +183,8 @@ const RenderTable=()=>{
       <th>עבודה</th>
       <th>השכלה</th>
       <th>?צמחוני</th>
+      <th>פעולות</th>
+
 
   </tr>
 </thead>
@@ -172,6 +205,7 @@ for (let i = 0; i < GlobalDATA.length; i++) {
   <td>${solider.job}</td>
   <td>${solider.education}</td>
   <td>${isvegen}</td>
+  <td>  <button style="width:75px; font-size:16px; margin-right:5px;" onclick="UpdateHandler(this.id)" id="U-${i}" class="btn-ok-effect">עריכה</button><button style="width:75px;font-size:16px; margin-left:5px;" id="X-${i}" class="btn-X-effect">מחיקה</button></td>
 </tr>`
 }
   str+=`</tbody>`;
@@ -185,6 +219,7 @@ for (let i = 0; i < GlobalDATA.length; i++) {
   <th>עבודה</th>
   <th>השכלה</th>
   <th>?צמחוני</th>
+  <th>פעולות</th>
 </tr>
 </tfoot>
 `;
@@ -198,6 +233,24 @@ const UpdateHandler =(id)=>{
   window.location.assign('./RegisterForm.html');
 
 }
+
+const deleteSolider=(id)=>{
+  //console.log(id.replace("X-",''));
+  const index = id.replace("X-",'');
+  let tempData =[];
+  for (let i = 0; i < GlobalDATA.length; i++) {
+    const solider = GlobalDATA[i];
+    if (i!=index) {
+      tempData.push(solider);
+
+    }
+    
+  }
+  GlobalDATA = tempData;
+  Save(GlobalDATA);
+}
+
+
 
 //////////////FireBase
 // const SaveOneSolider = (json) => {

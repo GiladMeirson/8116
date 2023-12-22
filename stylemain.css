@@ -3,7 +3,15 @@ body {
   padding: 0;
   background-color: #e5e5e5;
 }
-
+#Block{
+  position: absolute;
+  top: 0vh;
+  left: 0vw;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 3;
+}
 ul {
     list-style-type: none;
     margin: 0;
@@ -33,7 +41,10 @@ ul {
     text-decoration: none;
     font-size: 18px;
   }
-  
+  #lockicon:hover {
+    cursor: pointer;
+  }
+
   li a:hover:not(.active) {
     background-color: #111;
   }

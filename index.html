@@ -38,6 +38,13 @@
 </head>
 
 <body onload="init()">
+    <div id="Block">
+        <div style="text-align: center;">
+            <p style="font-size: 70px; color: darkgreen;" id="passL">הכנס סיסמא</p>
+            <input  type="password" name="" id="passIN">
+        </div>
+
+    </div>
     <section id="header-section">
         <header class="header">
             <h1>ממשק עבודה פלוגת מסייעת 8116</h1>
@@ -49,8 +56,8 @@
             <li><a href="#contact">Contact</a></li> -->
             <li style="float:right"><a href="#about">About</a></li>
             <li style="float:right;"><input  id="searchBar" type="search" placeholder="..חפש חייל"></li>
-            <li style="float:right;"><button onclick="changeInput()" class="btn">חפש</button></li>
-            <li style="float:right;"><button onclick="SwitchToTable()"  class="btn">הצג כטבלה</button></li>
+            <li style="float:right;"><button id="searchBarBTN" onclick="changeInput()" class="btn">חפש</button></li>
+            <li style="float:right;"><button id="tableBTN" onclick="SwitchToTable()"  class="btn">הצג כטבלה</button></li>
           </ul>
     </section>
 <div id="phMain">
@@ -627,6 +634,5 @@
         </div>
     </section>
 </div>
-
 </body>
-</html>
+</html> 

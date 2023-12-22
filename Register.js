@@ -235,3 +235,40 @@ const ReadFrom = (ref,CB) => {
     $("#Sol-personalNumber").prop('disabled', true);
 
   }
+  function checkNumberFieldLength(elem,num){
+    if (elem.value.length > 4) {
+        elem.value = elem.value.slice(0,4); 
+    }
+  }
+
+  const UnlockThis=(id) =>{
+    const input = document.getElementById(id);
+    if (input.disabled) {
+        let number = ez.rand(1000,9999);
+        Swal.fire({
+          title: `<strong>כדי לאמת את הפעולה הכנס את המספר ${number}</strong>`,
+          icon: "info",
+          html: `<input oninput="checkNumberFieldLength(this,${number});" maxlength="4" max="9999" min="1000" type="number" name="" id="confirmNumberIN">`,
+          showCloseButton: true,
+          showCancelButton: true,
+          focusConfirm: false,
+          confirmButtonText: `אשר`,
+          confirmButtonAriaLabel: "Thumbs up, great!",
+          cancelButtonText: `בטל`,
+          cancelButtonAriaLabel: "Thumbs down",
+    
+        }).then((result)=>{
+            if (result.isConfirmed) {
+                //console.log('confirm!!',result)
+                if ($('#confirmNumberIN').val()==number) {
+                    input.disabled = false;
+                }
+            }
+        })
+    }
+    else {
+        input.disabled=true;
+    }
+
+   
+  }

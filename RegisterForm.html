@@ -20,6 +20,7 @@
 
 
 
+
 <script src="./config.js"></script>
 <script src='https://giladmeirson.github.io/EZ/lib/EZ.js'></script>
 <script src="./Register.js"></script>
@@ -37,6 +38,8 @@
             <!-- <li><a href="#news">News</a></li>
             <li><a href="#contact">Contact</a></li> -->
             <li style="float:right"><a href="#about">About</a></li>
+            <li style="margin-left: 50px;" ><a href="./index.html">חזור</a></li>
+
           </ul>
     </section>
 
@@ -46,9 +49,16 @@
             <div class="wrap-R"  id="Line1">
                 <div id="personalDetails">
                     <h2>פרטים אישיים</h2>
+                    <div class="wrap-R">
                         <input id="Sol-Name" type="text" placeholder="..שם החייל">
+                        <img onclick="UnlockThis('Sol-Name')" id="lockicon" style="width: 30px; height: 30px; margin-top: 8px;" src="./assets/padlock.png" alt="">
 
-                        <input id="Sol-personalNumber" type="text" placeholder="..מספר אישי">
+                    </div>
+
+                        <div class="wrap-R">
+                            <input id="Sol-personalNumber" type="text" placeholder="..מספר אישי">
+                            <img onclick="UnlockThis('Sol-personalNumber')" id="lockicon" style="width: 30px; height: 30px; margin-top: 8px;" src="./assets/padlock.png" alt="">
+                        </div>
                         <input  id="Sol-mail" type="email" placeholder="..אימייל">
                         <input  type="tel" name="Sol-phone" id="Sol-phone" placeholder="..מספר נייד">
                     <input id="Sol-Job" type="text" placeholder="..עבודה באזרחות">
@@ -123,5 +133,6 @@
 
 
     </section>
-</body>
+</body> 
+
 </html>
