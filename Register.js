@@ -1,13 +1,14 @@
 GlobalDATA=[];
-
+FUNC = 'edit';
 const init = ()=>{
     ReadFrom('Miluim')
     let soliderIndex = sessionStorage.getItem('Data');
     setTimeout(()=>{
         if (soliderIndex==undefined || soliderIndex==null || soliderIndex=='') {
-        
+            FUNC = 'new';
         }
         else{
+            FUNC = 'edit';
             RenderDetails(soliderIndex);
         }
     },500)
@@ -137,8 +138,11 @@ const submitHandler=()=>{
     }).then((result) => {
         // Check if the user clicked the "OK" button
         if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+            if (FUNC=='new') {
             // Close the page
             window.close();
+            }
+
         }
     });
     
