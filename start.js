@@ -26,7 +26,6 @@ const init = ()=>{
 
   if (sessionStorage.getItem('isAllow')) {
     $('#Block').fadeOut();
-    $('#TableHolder').fadeIn();
     $('#MainShow-section').fadeIn();
     $('#header-section').fadeIn();
   }
@@ -94,42 +93,43 @@ const MegaFilter=(str)=>{
     const solider = GlobalDATA[i];
     if (solider.name.includes(str)) {
       localArr.push(solider);
+      continue;
     }
     if (solider.personalNumber.includes(str)) {
       localArr.push(solider);
-
+      continue;
     }
     if (solider.education.includes(str)) {
       localArr.push(solider);
-
+      continue;
     }
     if (solider.email.includes(str)) {
       localArr.push(solider);
-
+      continue;
     }
     if (solider.foodPref.includes(str)) {
       localArr.push(solider);
-
+      continue;
     }
     if (solider.job.includes(str)) {
       localArr.push(solider);
-
+      continue;
     }
     if (solider.phone.includes(str)) {
       localArr.push(solider);
-
+      continue;
     }
     if (solider.shoeSize.toString().includes(str)) {
       localArr.push(solider);
-
+      continue;
     }
     if (solider.uniformSize.includes(str)) {
       localArr.push(solider);
-
+      continue;
     }
     if (solider.weapon.includes(str)) {
       localArr.push(solider);
-
+      continue;
     }
     
   }
@@ -235,22 +235,36 @@ const UpdateHandler =(id)=>{
 }
 
 const deleteSolider=(id)=>{
-  //console.log(id.replace("X-",''));
-  const index = id.replace("X-",'');
-  let tempData =[];
-  for (let i = 0; i < GlobalDATA.length; i++) {
-    const solider = GlobalDATA[i];
-    if (i!=index) {
-      tempData.push(solider);
-
-    }
+  Swal.fire({
+    title: "? האם אתה בטוח שתרצה למחוק",
+    text: "מחיקה של נתונים אלא תהווה מחיקה לצמיתות ולא יהיה ניתן לשחזר את המידע",
+    icon: "warning",
+    confirmButtonText:'מחיקה',
+    showDenyButton:true,
+    denyButtonText:'ביטול'
+  }).then((result)=>{
+    if (result.isConfirmed) {
+      const index = id.replace("X-",'');
+      let tempData =[];
+      for (let i = 0; i < GlobalDATA.length; i++) {
+        const solider = GlobalDATA[i];
+        if (i!=index) {
+          tempData.push(solider);
     
-  }
-  GlobalDATA = tempData;
-  Save(GlobalDATA);
+        }
+        
+      }
+      GlobalDATA = tempData;
+      Save2(GlobalDATA);
+    }
+  })
+
 }
 
-
+const moveTo = (url)=>{
+  sessionStorage.setItem('Data',null);
+  location.assign(url);
+}
 
 //////////////FireBase
 // const SaveOneSolider = (json) => {
@@ -261,7 +275,7 @@ const ReadFrom = (ref,CB) => {
     const collection = firebase.database().ref(ref);
     collection.on("value", (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
+      console.log('From readFrom',data);
       GlobalDATA = data;
       // console.log(Object.keys(data).length)
       loadRender(data);
@@ -272,3 +286,7 @@ const Save = (value) => {
   ref = firebase.database().ref("Miluim");
   ref.child('Miluim').set(value);
 };
+const Save2=(value)=>{
+  ref = firebase.database().ref("Miluim");
+  ref.set(value);
+}

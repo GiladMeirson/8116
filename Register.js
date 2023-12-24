@@ -4,7 +4,7 @@ const init = ()=>{
     ReadFrom('Miluim')
     let soliderIndex = sessionStorage.getItem('Data');
     setTimeout(()=>{
-        if (soliderIndex==undefined || soliderIndex==null || soliderIndex=='') {
+        if (soliderIndex==undefined || soliderIndex==null || soliderIndex==''||soliderIndex=='null') {
             FUNC = 'new';
         }
         else{
@@ -61,6 +61,7 @@ const submitHandler=()=>{
     const solider={};
     solider.name=name;
     solider.personalNumber=personalNumber;
+    solider.email = mail;
     let weaponStr = ``;
     let sep = ' ';
     if (tar) {
@@ -124,27 +125,49 @@ const submitHandler=()=>{
     solider.education = Education;
 
     console.log(solider);
-    GlobalDATA.push(solider);
-    Save(GlobalDATA);
-    // Swal.fire({
-    //     title: "ההרשמה בוצע בהצלחה",
-    //     text: "הנתונים שלך נשמרו , כעת תוכל לצאת מהאתר אם זה לא קרה באופן אוטמטי",
-    //     icon: "success"
-    // });
-    Swal.fire({
-        title: "ההרשמה בוצעה בהצלחה",
-        text: "הנתונים שלך נשמרו, כעת תוכל לצאת מהאתר אם זה לא קרה באופן אוטומטי",
-        icon: "success"
-    }).then((result) => {
-        // Check if the user clicked the "OK" button
-        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-            if (FUNC=='new') {
-            // Close the page
-            window.close();
+    if (FUNC=='new') {
+        GlobalDATA.push(solider);
+        Save(GlobalDATA);
+        // Swal.fire({
+        //     title: "ההרשמה בוצע בהצלחה",
+        //     text: "הנתונים שלך נשמרו , כעת תוכל לצאת מהאתר אם זה לא קרה באופן אוטמטי",
+        //     icon: "success"
+        // });
+        Swal.fire({
+            title: "ההרשמה בוצעה בהצלחה",
+            text: "הנתונים שלך נשמרו, כעת תוכל לצאת מהאתר אם זה לא קרה באופן אוטומטי",
+            icon: "success"
+        }).then((result) => {
+            // Check if the user clicked the "OK" button
+            if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+                if (FUNC=='new') {
+                // Close the page
+                window.close();
+                }
+    
             }
-
+        });
+    }
+    else if (FUNC=='edit') {
+        let soliderIndex = sessionStorage.getItem('Data');
+        for (let i = 0; i < GlobalDATA.length; i++) {
+            const s = GlobalDATA[i];
+            if (i==soliderIndex) {
+                GlobalDATA[i] = solider;
+                Save(GlobalDATA);
+                Swal.fire({
+                    title: "העדכון בוצע בהצלחה",
+                    text: "פרטי החייל התעדכנו בהצלחה ",
+                    icon: "success"
+                }).then(()=>{
+                    location.replace('./index.html');
+                })
+            }
+            
         }
-    });
+    }
+
+
     
 
 }
