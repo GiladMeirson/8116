@@ -3,14 +3,7 @@
 //******************************************************* 
 // const loadThis =()=>{
 //     ref = firebase.database().ref("Miluim");
-
-//     // for (let i = 0; i < soldiers.length; i++) {
-//     //     const element = soldiers[i];
-//     //     SaveOneSolider(element);
-        
-//     // }
-
-//     SaveOneSolider(soldiers);
+//     Save2(soldiers);
 
     
 // }
@@ -76,7 +69,7 @@ str+=`<div class="contentCard">
     <p>${Onesolider.education}</p>
 </div>
 <div class="buttons">
-    <button id="X-${index}" onclick="deleteSolider(this.id)" class="btn-X-effect">מחיקה</button>
+    <button id="X-${Onesolider.name}" onclick="deleteSolider(this.id)" class="btn-X-effect">מחיקה</button>
     <button onclick="UpdateHandler(this.id)" id="U-${index}" class="btn-ok-effect">עריכה</button>
 </div>
 
@@ -205,7 +198,7 @@ for (let i = 0; i < GlobalDATA.length; i++) {
   <td>${solider.job}</td>
   <td>${solider.education}</td>
   <td>${isvegen}</td>
-  <td>  <button style="width:75px; font-size:16px; margin-right:5px;" onclick="UpdateHandler(this.id)" id="U-${i}" class="btn-ok-effect">עריכה</button><button style="width:75px;font-size:16px; margin-left:5px;" id="X-${i}" class="btn-X-effect">מחיקה</button></td>
+  <td>  <button style="width:75px; font-size:16px; margin-right:5px;" onclick="UpdateHandler(this.id)" id="U-${i}" class="btn-ok-effect">עריכה</button><button style="width:75px;font-size:16px; margin-left:5px;" id="X-${solider.name}" class="btn-X-effect">מחיקה</button></td>
 </tr>`
 }
   str+=`</tbody>`;
@@ -244,17 +237,18 @@ const deleteSolider=(id)=>{
     denyButtonText:'ביטול'
   }).then((result)=>{
     if (result.isConfirmed) {
-      const index = id.replace("X-",'');
+      const ID = id.replace("X-",'');
       let tempData =[];
       for (let i = 0; i < GlobalDATA.length; i++) {
         const solider = GlobalDATA[i];
-        if (i!=index) {
+        if (solider.name!=ID) {
           tempData.push(solider);
     
         }
         
       }
       GlobalDATA = tempData;
+      console.log(ID,GlobalDATA)
       Save2(GlobalDATA);
     }
   })
@@ -282,10 +276,10 @@ const ReadFrom = (ref,CB) => {
     });
 };
 
-const Save = (value) => {
-  ref = firebase.database().ref("Miluim");
-  ref.child('Miluim').set(value);
-};
+// const Save = (value) => {
+//   ref = firebase.database().ref("Miluim");
+//   ref.child('Miluim').set(value);
+// };
 const Save2=(value)=>{
   ref = firebase.database().ref("Miluim");
   ref.set(value);
