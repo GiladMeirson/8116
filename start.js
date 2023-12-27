@@ -16,11 +16,19 @@ const init = ()=>{
   $('#TableHolder').hide();
   $('#MainShow-section').hide();
   $('#header-section').hide();
+  $('#About').hide();
 
   if (sessionStorage.getItem('isAllow')) {
     $('#Block').fadeOut();
     $('#MainShow-section').fadeIn();
     $('#header-section').fadeIn();
+    const MODE = sessionStorage.getItem('MODE')
+    if (MODE=='table') {
+      setTimeout(SwitchToTable,300) 
+    }
+    else {
+      SwitchtoCard()
+    }
   }
   document.getElementById('passIN').addEventListener('keypress',(e)=>{
     const userpassIN = e.srcElement.value;
@@ -41,7 +49,7 @@ const init = ()=>{
   })
 }
 const loadRender=(data)=>{
-  console.log('LoadRender',data);
+  //console.log('LoadRender',data);
   document.getElementById('MainShow-section').innerHTML='';
 
   for (let i = 0; i < data.length; i++) {
@@ -143,7 +151,7 @@ const changeInput =()=>{
 }
 
 const SwitchToTable = ()=>{
-
+  sessionStorage.setItem('MODE','table');
   RenderTable();
   $('#tableBTN').fadeOut();
   new DataTable('#DB-Table',{
@@ -156,6 +164,7 @@ const SwitchToTable = ()=>{
 
 }
 const SwitchtoCard=()=>{
+  sessionStorage.setItem('MODE','card');
   $('#TableHolder').fadeOut();
   $('#MainShow-section').fadeIn();
   $('#tableBTN').fadeIn();
@@ -198,7 +207,7 @@ for (let i = 0; i < GlobalDATA.length; i++) {
   <td>${solider.job}</td>
   <td>${solider.education}</td>
   <td>${isvegen}</td>
-  <td>  <button style="width:75px; font-size:16px; margin-right:5px;" onclick="UpdateHandler(this.id)" id="U-${i}" class="btn-ok-effect">עריכה</button><button style="width:75px;font-size:16px; margin-left:5px;" id="X-${solider.name}" class="btn-X-effect">מחיקה</button></td>
+  <td>  <button style="width:75px; font-size:16px; margin-right:5px;" onclick="UpdateHandler(this.id)" id="U-${i}" class="btn-ok-effect">עריכה</button><button style="width:75px;font-size:16px; margin-left:5px;" id="X-${solider.name}" onclick="deleteSolider(this.id)" class="btn-X-effect">מחיקה</button></td>
 </tr>`
 }
   str+=`</tbody>`;
@@ -260,6 +269,20 @@ const moveTo = (url)=>{
   location.assign(url);
 }
 
+const aboutToggle=(flag=true)=>{
+  if (flag) {
+    $('#TableHolder').hide();
+    $('#MainShow-section').hide();
+    $('#About').fadeIn();
+
+  }
+  else {
+    $('#About').hide();
+    $('#MainShow-section').fadeIn();
+    
+  }
+}
+
 //////////////FireBase
 // const SaveOneSolider = (json) => {
 //     ref.child(json.personalNumber+'---'+json.name).set(json);
@@ -269,7 +292,7 @@ const ReadFrom = (ref,CB) => {
     const collection = firebase.database().ref(ref);
     collection.on("value", (snapshot) => {
       const data = snapshot.val();
-      console.log('From readFrom',data);
+      //console.log('From readFrom',data);
       GlobalDATA = data;
       // console.log(Object.keys(data).length)
       loadRender(data);

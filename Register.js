@@ -124,7 +124,7 @@ const submitHandler=()=>{
     solider.phone = phone;
     solider.education = Education;
 
-    console.log(solider);
+    //console.log(solider);
     if (FUNC=='new') {
         GlobalDATA.push(solider);
         Save(GlobalDATA);
@@ -143,6 +143,7 @@ const submitHandler=()=>{
                 if (FUNC=='new') {
                 // Close the page
                 window.close();
+                location.assign('https://www.miluim.idf.il/')
                 }
     
             }
@@ -181,13 +182,13 @@ const ReadFrom = (ref,CB) => {
     collection.on("value", (snapshot) => {
       const data = snapshot.val();
       GlobalDATA = data;
-      console.log(GlobalDATA)
+      //console.log(GlobalDATA)
       // console.log(Object.keys(data).length)
     });
   };
   const RenderDetails=(index)=>{
     let solider = GlobalDATA[index];
-    console.log('in Render',index,solider);
+    //console.log('in Render',index,solider);
     document.getElementById('headerTitle').innerHTML = `טופס עריכת חייל-${solider.name}`;
     document.getElementById('SubmitForm').innerHTML = 'עדכן חייל';
     $('#Sol-Name').val(solider.name);
@@ -298,4 +299,18 @@ const ReadFrom = (ref,CB) => {
     }
 
    
+  }
+
+  const aboutToggle=(flag=true)=>{
+    if (flag) {
+
+      $('#Form-Section').hide();
+      $('#About').fadeIn();
+  
+    }
+    else {
+      $('#About').hide();
+      $('#Form-Section').fadeIn();
+      
+    }
   }
