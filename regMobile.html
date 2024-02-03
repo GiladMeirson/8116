@@ -16,11 +16,30 @@
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
+                <!-- FIREBASE -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script
+            src="https://www.gstatic.com/firebasejs/7.14.6/firebase-analytics.js"></script>
+        <!--**** Remember to add the database script ***-->
+        <script
+            src="https://www.gstatic.com/firebasejs/7.14.6/firebase-database.js"></script>
+        <!-- FIREBASE -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script src="./js/config.js"></script>
+        <script src="./js/solider.js"></script>
+        <script src="./js/regMobile.js"></script>
         <link rel="stylesheet" href="./regMobile.css">
 </head>
 <body dir="rtl">
     <div class="container">
-        <div class="display-center margin-top shadow">
+        <div class="display-center margin-top shadow color">
             <div>
                 <h1 class="center">מסייעת 8116</h1>
             </div>
@@ -84,11 +103,11 @@
                     <label for="title">תפקיד:</label>
                     <br>
                     <select class="selectIN" name="title" id="title">
-                        <option value="ק">לוחם</option>
-                        <option value="ב">מפקד כיתה</option>
-                        <option value="ג">מפקד מחלקה</option>
-                        <option value="מ">מפלג</option>
-                        <option value="ממ">סמל מחלקה</option>
+                        <option value="לוחם">לוחם</option>
+                        <option value="מפקד כיתה">מפקד כיתה</option>
+                        <option value="מפקד מחלקה">מפקד מחלקה</option>
+                        <option value="מפלג">מפלג</option>
+                        <option value="סמל מחלקה">סמל מחלקה</option>
         
                     </select>
                 </div>
@@ -150,7 +169,7 @@
  
         </div>
         <div class="row center margin-block">
-            <button id="submit" class="btn btn-primary">שלח טופס</button>
+            <button onclick="submitHandlerMobile()" id="submit" class="btn btn-primary">שלח טופס</button>
 
         </div>
     </div>

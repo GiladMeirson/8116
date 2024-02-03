@@ -1,5 +1,5 @@
 class Solider {
-    constructor(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe){
+    constructor(personalNum,fullName,phone,email,job,birthDay,ArmyDate,shoe,uniform,title,isVeg,isStudent,tar,mictar,M16,negev,matol,mag,sniper,kala){
         this.personalNum=personalNum;
         this.fullName=fullName;
         this.phone=phone;
@@ -8,6 +8,19 @@ class Solider {
         this.birthDay=birthDay;
         this.ArmyDate=ArmyDate;
         this.shoe=shoe;
+        this.uniform = uniform
+        this.title = title
+        this.isVeg = isVeg
+        this.isStudent = isStudent
+        this.tar = tar
+        this.mictar = mictar
+        this.M16 = M16
+        this.negev = negev
+        this.matol = matol
+        this.mag = mag
+        this.sniper = sniper
+        this.kala = kala
+
     }
     validation(){
         if (this.ArmyDate=='' || this.ArmyDate == null) {
@@ -40,13 +53,12 @@ class Solider {
         else {
             this.shoe = parseInt(this.shoe);
         }
+        if (!this.M16 &&!this.kala && !this.mag && !this.matol && !this.mictar && !this.negev && !this.sniper && !this.tar ) {
+            return false;
+        }
         return true;
     }
 
-    post(){
-        //firebase
-    }
 }
 
 
-export default  class {solider};
